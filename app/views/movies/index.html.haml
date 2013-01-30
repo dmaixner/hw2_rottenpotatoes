@@ -17,7 +17,6 @@
       - if params[:order]
         %input{:type=>"hidden", :value=>params[:order], :name=>:order}
       = submit_tag 'Refresh',:id=>"ratings_submit"
-
     - @movies.each do |movie|
       %tr
         %td= movie.title 
