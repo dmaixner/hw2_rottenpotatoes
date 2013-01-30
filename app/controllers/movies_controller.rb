@@ -8,8 +8,8 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
-    ratings = params[:ratings]
-    @movies = Movie.where(ratings ? {:rating=>ratings.keys} : nil).all(:order=>params[:order])
+    @ratings = params[:ratings]
+    @movies = Movie.where(@ratings ? {:rating=>@ratings.keys} : nil).all(:order=>params[:order])
   end
 
   def new
