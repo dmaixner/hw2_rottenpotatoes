@@ -13,7 +13,7 @@
       Include: 
       - @all_ratings.each do |rating|
         = rating
-        = check_box_tag "ratings[#{rating}]",1,@ratings ? @ratings.include?(rating) : false
+        = check_box_tag "ratings[#{rating}]",1,@ratings ? @ratings.include?(rating) : true
       - if params[:order]
         %input{:type=>"hidden", :value=>params[:order], :name=>:order}
       = submit_tag 'Refresh',:id=>"ratings_submit"
