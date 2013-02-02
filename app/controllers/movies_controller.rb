@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
     redirect_params=Hash.new
     redirect_params[:ratings] = get_param(:ratings)
     redirect_params[:order] = get_param(:order)
-    if ((!params[:order] || !params[:ratings]) && redirect_params[:ratings] && redirect_params[:order])
+    if ((!params[:order] && redirect_params[:order]) || (!params[:ratings] && redirect_params[:ratings]))
       flash.keep
       redirect_to movies_path redirect_params
     end
