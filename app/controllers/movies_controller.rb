@@ -7,9 +7,29 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @all_ratings = Movie.all_ratings
-    @ratings = params[:ratings]
+    def get_param(name)
+      p=params[name]
+      if p
+        session[name]=p
+      else
+        p=session[name]
+      end
+      p
+    end
+
+    redirect_params=Hash.new
+    redirect_params[:ratings] = get_param(:ratings)
+    redirect_params[:order] = get_param(:order)
+    if (!params[:order] || !params[:ratings])
+      flash.keep
+      redirect_to movies_path redirect_params
+    end
+
+    @title_class={:class=>if redirect_params[:order]=="title" then "hilite" end}
+    @date_class={:class=>if redirect_params[:order]=="release_date" then "hilite" end}
+    @ratings=redirect_params[:ratings]
     @movies = Movie.where(@ratings ? {:rating=>@ratings.keys} : nil).all(:order=>params[:order])
+    @all_ratings = Movie.all_ratings
   end
 
   def new
